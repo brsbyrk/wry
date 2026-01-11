@@ -614,13 +614,14 @@ r#"Object.defineProperty(window, 'ipc', {
       #[cfg(target_os = "macos")]
       {
         if is_child {
+          ns_view.setClipsToBounds(false);
           ns_view.addSubview(&webview);
         } else {
           // inject the webview into the window
           let ns_window = ns_view.window().unwrap();
 
           let parent_view = WryWebViewParent::new(mtm);
-
+          parent_view.setClipsToBounds(false);
           if let Some(position) = pl_attrs.traffic_light_inset {
             parent_view.set_traffic_light_inset(&ns_window, position);
           }
